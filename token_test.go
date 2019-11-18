@@ -2,6 +2,7 @@ package sausage
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"reflect"
@@ -55,7 +56,10 @@ func TestTokenize(t *testing.T) {
 				t.Error(err)
 			}
 
-			assert.Equal(t, expected, tokenizeResult, "Error testing: "+testName)
+			testPass := assert.Equal(t, expected, tokenizeResult, "Error testing: "+testName)
+			if testPass {
+				fmt.Println("└───── PASS - " + testName)
+			}
 		} else {
 			var expected []*Token
 			err := json.Unmarshal([]byte(result), &expected)
@@ -64,9 +68,15 @@ func TestTokenize(t *testing.T) {
 			}
 
 			if reflect.TypeOf(tokenizeResult) == reflect.TypeOf(expected) {
-				assert.ElementsMatch(t, expected, tokenizeResult, "Error testing "+testName)
+				testPass := assert.ElementsMatch(t, expected, tokenizeResult, "Error testing "+testName)
+				if testPass {
+					fmt.Println("└───── PASS - " + testName)
+				}
 			} else {
-				assert.Equal(t, expected, tokenizeResult, "Error testing "+testName+": Types should be equal")
+				testPass := assert.Equal(t, expected, tokenizeResult, "Error testing "+testName+": Types should be equal")
+				if testPass {
+					fmt.Println("└───── PASS - " + testName)
+				}
 			}
 		}
 	}
