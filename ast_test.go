@@ -9,7 +9,7 @@ import (
 )
 
 func TestLoadTree(t *testing.T) {
-	buffer, err := ioutil.ReadFile("tests/assets/_1_ast.json")
+	buffer, err := ioutil.ReadFile("tests/ast/ast.tree.json")
 	if err != nil {
 		log.Panic(err)
 	}
@@ -24,7 +24,7 @@ func TestLoadTree(t *testing.T) {
 	assert.Equal(t, treeString, astJSON, "Tree JSON different from source file")
 }
 func TestLoadTreeFile(t *testing.T) {
-	filePath := "tests/assets/_1_ast.json"
+	filePath := "tests/ast/ast.tree.json"
 
 	vm := New()
 
