@@ -14,9 +14,9 @@ import (
 
 func subTestResult(result bool, testName string) {
 	if result {
-		fmt.Println("└───── PASS - " + testName)
+		fmt.Println("  └── PASS: " + testName)
 	} else {
-		fmt.Println("└───── FAIL - " + testName)
+		fmt.Println("  └── FAIL: " + testName)
 	}
 }
 func TestTokenize(t *testing.T) {
