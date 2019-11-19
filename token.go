@@ -1,7 +1,6 @@
 package sausage
 
 import (
-	"fmt"
 	"strings"
 )
 
@@ -47,8 +46,5 @@ func Tokenize(source string) interface{} {
 		}
 	}
 
-	for _, v := range tokens {
-		fmt.Println(v)
-	}
 	return tokens
 }
