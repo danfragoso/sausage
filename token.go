@@ -17,6 +17,8 @@ func Tokenize(source string) interface{} {
 		var currentToken string
 
 		if currentToken == "" {
+			source = strings.Trim(source, " \n\r")
+
 			for tokenType, tokenPattern := range tokenPatterns {
 				tokenIndex := tokenPattern.FindStringIndex(source)
 

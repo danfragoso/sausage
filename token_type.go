@@ -23,7 +23,7 @@ var tokenPatterns = map[string]*regexp.Regexp{
 	"NullLiteral":       regexp.MustCompile(`^null`),
 	"BooleanLiteral":    regexp.MustCompile(`^true|false`),
 	"NumericLiteral":    regexp.MustCompile(`^\d+`),
-	"Punctuator":        regexp.MustCompile(`^{|\(|\)|\[|\]|\.{3}|\.|;|,|<<=|>>>=|>>=|>{3}|>{2}|<{2}|<=|>=|=>|<|>|===|!==|==|!=|\+=|\+{2}|\+|\-=|-{2}|\-|\*{2}=|\*{2}|\*=|\*|%=|%|&{2}|&=|&|\|{2}|\|=|\||~|\?|:|\^=|\^|!|/=|=|}`),
+	"Punctuator":        regexp.MustCompile(`^{|\(|\)|\[|\]|\.{3}|\.|;|,|<<=|>>>=|>>=|>{3}|>{2}|<{2}|<=|>=|=>|<|>|===|!==|==|!=|\+=|\+{2}|\+|\-=|-{2}|\-|\*{2}=|\*{2}|\*=|\*|%=|%|&{2}|&=|&|\|{2}|\|=|\||~|\?|:|\^=|\^|!|/=|=|}|/`),
 	"StringLiteral":     regexp.MustCompile(`^["|'].*["|']`),
 	"RegularExpression": regexp.MustCompile(`\/.*\/y?m?g?i?u?s?`),
 	"Identifier":        regexp.MustCompile(`^[a-zA-z|$]+`),
