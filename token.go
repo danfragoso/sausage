@@ -19,8 +19,8 @@ func Tokenize(source string) interface{} {
 		if currentToken == "" {
 			source = removeImediateWhitespace(source)
 
-			for tokenType, tokenPattern := range tokenPatterns {
-				tokenIndex := tokenPattern.FindStringIndex(source)
+			for _, tokenType := range tokenTypes {
+				tokenIndex := tokenPatterns[tokenType].FindStringIndex(source)
 
 				if len(tokenIndex) > 0 {
 					if tokenIndex[0] == 0 {

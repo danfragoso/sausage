@@ -20,12 +20,24 @@ type TokenizerFailure struct {
 
 var tokenPatterns = map[string]*regexp.Regexp{
 	"Keyword":           regexp.MustCompile(`^abstract|arguments|await|boolean|break|byte|case|catch|char|class|const|continue|debugger|default|delete|do|double|else|enum|eval|export|extends|false|final|finally|float|for|function|goto|if|implements|import|in|instanceof|int|interface|let|long|native|new|null|package|private|protected|public|return|short|static|super|switch|synchronized|this|throw|throws|transient|true|try|typeof|var|void|volatile|while|with|yield`),
-	"NullLiteral":       regexp.MustCompile(`^null`),
-	"BooleanLiteral":    regexp.MustCompile(`^true|false`),
-	"NumericLiteral":    regexp.MustCompile(`^\d+`),
+	"Null":              regexp.MustCompile(`^null`),
+	"Boolean":           regexp.MustCompile(`^true|false`),
+	"Numeric":           regexp.MustCompile(`^\d+`),
 	"Punctuator":        regexp.MustCompile(`^{|\(|\)|\[|\]|\.{3}|\.|;|,|<<=|>>>=|>>=|>{3}|>{2}|<{2}|<=|>=|=>|<|>|===|!==|==|!=|\+=|\+{2}|\+|\-=|-{2}|\-|\*{2}=|\*{2}|\*=|\*|%=|%|&{2}|&=|&|\|{2}|\|=|\||~|\?|:|\^=|\^|!|/=|=|}|/`),
-	"StringLiteral":     regexp.MustCompile(`^["|'].*["|']`),
+	"String":            regexp.MustCompile(`^["|'].*["|']`),
 	"RegularExpression": regexp.MustCompile(`\/.*\/y?m?g?i?u?s?`),
 	"Identifier":        regexp.MustCompile(`^[a-zA-z|$]+`),
 	"Template":          regexp.MustCompile(`^\x60.*\x60`),
+}
+
+var tokenTypes = []string{
+	"Keyword",
+	"Null",
+	"Boolean",
+	"Numeric",
+	"Punctuator",
+	"String",
+	"RegularExpression",
+	"Identifier",
+	"Template",
 }
