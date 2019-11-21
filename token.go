@@ -7,7 +7,7 @@ import (
 //Tokenize - Reads source code and tokenizes it, return can be slice with tokens or an error
 func Tokenize(source string) interface{} {
 	var tokens []*Token
-	sourceOriginal := source
+	sourceOriginal := removeImediateWhitespace(source)
 
 	if len(source) == 0 {
 		return tokens
@@ -17,22 +17,24 @@ func Tokenize(source string) interface{} {
 		var currentToken string
 
 		if currentToken == "" {
-			source = removeImediateWhitespace(source)
-
-			for _, tokenType := range tokenTypes {
-				tokenIndex := tokenPatterns[tokenType].FindStringIndex(source)
+			source = sourceOriginal
+			for tokenOrder := 0; tokenOrder < len(tokenTypes); tokenOrder++ {
+				tokenIndex := tokenPatterns[tokenTypes[tokenOrder]].FindStringIndex(source)
 
 				if len(tokenIndex) > 0 {
+
 					if tokenIndex[0] == 0 {
-						currentToken = getCurrentToken(source, tokenIndex)
+						currentToken = getCurrentToken(source, tokenIndex, tokenTypes[tokenOrder])
 
 						tokens = append(tokens, &Token{
-							Type:  tokenType,
+							Type:  tokenTypes[tokenOrder],
 							Value: currentToken,
 							Range: getAbsoluteRange(sourceOriginal, source, tokenIndex),
 						})
 
 						source = removeCurrentTokenFromSource(source, tokenIndex)
+
+						tokenOrder = 0
 						currentToken = ""
 					}
 				}
@@ -57,8 +59,15 @@ func getAbsoluteRange(originalString string, sourceString string, tokenIndex []i
 	return absoluteRange
 }
 
-func getCurrentToken(source string, tokenIndex []int) string {
-	return source[tokenIndex[0]:tokenIndex[1]]
+func getCurrentToken(source string, tokenIndex []int, tokenType string) string {
+	currentToken := source[tokenIndex[0]:tokenIndex[1]]
+	if tokenType == "BlockComment" {
+		currentToken = strings.Trim(currentToken, "/*")
+	} else if tokenType == "LineComment" {
+		currentToken = strings.Trim(currentToken, "//")
+	}
+
+	return currentToken
 }
 
 func removeCurrentTokenFromSource(source string, tokenIndex []int) string {
